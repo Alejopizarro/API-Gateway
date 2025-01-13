@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/api-gateway/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/auth-services-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/game-services-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-service-api/src/main/java" charset="UTF-8" />
   </component>
 </project>

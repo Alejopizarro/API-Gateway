@@ -1,7 +1,7 @@
-package com.example.auth_services_api.controller;
+package com.example.user_service_api.controller;
 
-import com.example.auth_services_api.commons.constants.ApiPathConstants;
-import com.example.auth_services_api.commons.entities.UserModel;
+import com.example.user_service_api.commons.constants.ApiPathConstants;
+import com.example.user_service_api.commons.entities.UserModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,15 +9,20 @@ import org.springframework.web.bind.annotation.*;
 public interface UserApi {
     @GetMapping(value = "/{userId}")
     ResponseEntity<UserModel> getUser(
+            @RequestHeader("userIdRequest") String id,
             @PathVariable Long userId
     );
+
     @PutMapping(value = "/{userId}")
     ResponseEntity<UserModel> updateUser(
+            @RequestHeader("userIdRequest") String id,
             @PathVariable Long userId,
             @RequestBody UserModel userRequest
     );
+
     @DeleteMapping(value = "/{userId}")
     ResponseEntity<Void> deleteUser(
+            @RequestHeader("userIdRequest") String id,
             @PathVariable Long userId
     );
 }

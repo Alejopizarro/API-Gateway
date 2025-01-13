@@ -17,6 +17,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     private final JwtUtils jwtUtils;
 
     public AuthenticationFilter(RouterValidator validator, JwtUtils jwtUtils) {
+        super(Config.class);
         this.validator = validator;
         this.jwtUtils = jwtUtils;
     }
@@ -29,7 +30,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
             ServerHttpRequest serverHttpRequest = null;
             if (validator.isSecured.test(request)) {
+                System.out.println("Protected route: " + path);
                 if (authMissing(request)) {
+                    System.out.println("Authorization header missing for route: " + path);
                     return onError(exchange, HttpStatus.UNAUTHORIZED);
                 }
 
