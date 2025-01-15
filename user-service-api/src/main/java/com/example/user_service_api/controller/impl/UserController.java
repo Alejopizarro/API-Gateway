@@ -16,19 +16,16 @@ public class UserController implements UserApi {
 
     @Override
     public ResponseEntity<UserModel> getUser(String id, Long userId) {
-        // Llamamos al servicio y pasamos el userIdRequest junto con el userId
         return ResponseEntity.ok(userService.getUser(userId, id));
     }
 
     @Override
     public ResponseEntity<UserModel> updateUser(String id, Long userId, UserModel userRequest) {
-        // Llamamos al servicio y pasamos el userIdRequest junto con el userId
         return ResponseEntity.ok(userService.updateUser(id, userId, userRequest));
     }
 
     @Override
     public ResponseEntity<Void> deleteUser(String id, Long userId) {
-        // Llamamos al servicio y pasamos el userIdRequest junto con el userId
         userService.deleteUser(id, userId);
         return ResponseEntity.noContent().build();
     }
