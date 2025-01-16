@@ -3,7 +3,6 @@ package com.example.game_services_api.service.impl;
 import com.example.game_services_api.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +37,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String extractUserId(String token) {
         try {
-            return getClaims(token).getSubject();  // Extrae el userId del token
+            return getClaims(token).getSubject();
         } catch (Exception e) {
             return null;
         }

@@ -25,30 +25,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        // Obtenemos el header de autorización
         String authHeader = request.getHeader("Authorization");
-
-        // Verificamos si el header contiene un token Bearer
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            // Extraemos el token del header
             String jwtToken = authHeader.substring(7);
-
-            // Verificamos si el token no ha expirado
             if (!jwtService.isExpired(jwtToken)) {
-                // Extraemos el userId del token
                 String userId = jwtService.extractUserId(jwtToken);
-
-                // Creamos un objeto de autenticación con el userId
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userId, null, List.of()
                 );
-
-                // Establecemos la autenticación en el contexto de seguridad
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
-
-        // Continuamos con la cadena de filtros
         filterChain.doFilter(request, response);
     }
 }

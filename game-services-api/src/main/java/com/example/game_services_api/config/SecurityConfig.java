@@ -23,19 +23,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Usamos el nuevo método 'authorizeRequests' para manejar permisos en las rutas
         http
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("v1/game/**", "/v1/game/create", "/v1/game/{id}").authenticated()  // Requiere autenticación
-                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()  // Acceso sin autenticación a Swagger
-                        .anyRequest().permitAll()  // Resto de las rutas sin restricciones
+                        .requestMatchers("v1/game/**", "/v1/game/create", "/v1/game/{id}").authenticated()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .anyRequest().permitAll()
                 )
-                .csrf(csrf -> csrf.disable())  // Desactivar CSRF ya que estamos usando JWT
+                .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // Desactivar las sesiones, ya que estamos usando JWT (sin estado)
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
-
-        // Añadir filtro JWT antes de UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -43,6 +40,6 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class).build(); // Configuración del AuthenticationManager
+        return http.getSharedObject(AuthenticationManagerBuilder.class).build();
     }
 }
